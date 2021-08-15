@@ -10,7 +10,10 @@
       "email": "puleeno@gmail.com"
     }
   ],
-  "require": {},
+  "require": {
+    "jankx/post-layout": "*",
+    "jankx/widget": "*"
+  },
   "autoload": {
     "psr-4": {
       "Jankx\\Filter\\": "src/"
