@@ -6,6 +6,7 @@ use Jankx\TemplateLoader;
 use Jankx\Widget\Renderers\Base as RendererBase;
 use Jankx\PostLayout\PostLayoutManager;
 use Jankx\PostLayout\Layout\Card;
+use Jankx\Filter\FilterManager;
 
 class PostTypeFiltersRenderer extends RendererBase
 {
@@ -49,19 +50,39 @@ class PostTypeFiltersRenderer extends RendererBase
 
     public function render()
     {
+        $filters = array_get($this->options, 'filters', []);
+        if (empty($filters)) {
+            if (current_user_can('manage_theme')) {
+                echo __('The filter is not set. Please added the filter to use this widget', 'jankx_filter');
+            }
+            return;
+        }
+        $filterStyle = array_get($this->options, 'filter_style', 'simple');
+        $filterManager = FilterManager::getInstance();
+        $filter = $filterManager->getFilterStyle($filterStyle);
+        if (empty($filter)) {
+            error_log(sprintf('The "%s" filter is invalid', $filterStyle));
+            return;
+        }
+
         $postLayoutManager = PostLayoutManager::getInstance(TemplateLoader::getTemplateEngine());
         $postLayout = $postLayoutManager->createLayout(
             Card::LAYOUT_NAME,
             $this->generateWordPressQuery()
         );
         $postLayout->setOptions($this->layoutOptions);
+        $filter->setData(array_get($this->options, 'filters'));
 
         $filterWrapAttributes = array(
             'class' => array('jankx-global-filter', sprintf('style-%s-filter', array_get($this->options, 'filter_style'))),
-            'data-filter-id' => array_get($options, 'instance_id', 1),
+            'data-filter-id' => array_get($this->options, 'instance_id', 1),
         );
         echo sprintf('<div %s>', jankx_generate_html_attributes($filterWrapAttributes));
+            // Render filter content with Post layout
+            $filter->render();
             $postLayout->render();
+
+            // Write JS variables to support filter data without reload page
             $this->writeJsVariables();
         echo '</div><!-- /.jankx-global-filter -->';
     }

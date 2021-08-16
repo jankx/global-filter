@@ -7,6 +7,8 @@ use Jankx\Filter\Abstracts\Data;
 class FilterData extends Data
 {
     protected $options = array();
+    protected $displayType;
+    protected $typeName;
 
     public function addOption($filterOption)
     {
@@ -19,5 +21,20 @@ class FilterData extends Data
     public function getOptions()
     {
         return $this->options;
+    }
+
+    public function setDisplayType($displayType)
+    {
+        $this->displayType = $displayType;
+    }
+
+    public function getDisplayType()
+    {
+        return $this->displayType;
+    }
+
+    public function setTypeName($typeName)
+    {
+        $this->typeName = $typeName;
     }
 }
