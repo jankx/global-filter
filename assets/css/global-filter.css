@@ -1,0 +1,9 @@
+.simple-filter-wrapper {
+  display: flex;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-bottom: 20px; }
+  .simple-filter-wrapper .jankx-filter-wrap {
+    padding: 0 10px; }
+
+/*# sourceMappingURL=global-filter.css.map */

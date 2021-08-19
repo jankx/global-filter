@@ -5,7 +5,7 @@ use Jankx\Filter\Filters\SimpleFilter;
 
 class FilterManager
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.0.4';
 
     protected $filterStyles;
     protected $rootDirUrl;

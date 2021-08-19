@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,sBAAuB;EACnB,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,KAAK;EAClB,YAAY,EAAE,KAAK;EACnB,aAAa,EAAE,IAAI;EAEnB,yCAAmB;IACf,OAAO,EAAE,MAAM",
+"sources": ["../scss/_layout.scss"],
+"names": [],
+"file": "global-filter.css"
+}

@@ -11,6 +11,8 @@ class SimpleFilter extends Filter
         return __('Simple Filter', 'jankx_filter');
     }
 
+
+
     public function renderSelectFilter($filterData)
     {
         $selectFilterWrap = array(
@@ -46,15 +48,31 @@ class SimpleFilter extends Filter
     public function render()
     {
         $filterStyleWrap = array(
-            'class' => 'simple-filter-wrapper'
+            'class' => 'simple-filter-wrapper filter-form',
+            'action' => '',
+            'method' => 'GET'
         );
-        echo sprintf('<div %s>', jankx_generate_html_attributes($filterStyleWrap));
-        foreach ($this->data as $filterData) {
-            if (!is_a($filterData, FilterData::class)) {
-                continue;
+        echo sprintf('<form %s>', jankx_generate_html_attributes($filterStyleWrap));
+            foreach ($this->data as $filterData) {
+                if (!is_a($filterData, FilterData::class)) {
+                    continue;
+                }
+                $this->renderFilterData($filterData);
             }
-            $this->renderFilterData($filterData);
-        }
-        echo '</div>';
+
+            $this->afterFormContent();
+        echo '</form>';
+    }
+
+    protected function afterFormContent() {
+        echo sprintf(
+            '<div class="jankx-filter-wrap submit-form">
+                <button type="submit">%s</button>
+            </div>',
+            apply_filters(
+                'jankx/filter/simple/submit/text',
+                __('Search', 'jankx_filter')
+            )
+        );
     }
 }
