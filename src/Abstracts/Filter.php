@@ -24,7 +24,8 @@ abstract class Filter implements FilterInterface
         return $this->data;
     }
 
-    protected function afterFormContent() {
+    protected function afterFormContent()
+    {
         do_action('jankx/filter/form/content/after');
     }
 }

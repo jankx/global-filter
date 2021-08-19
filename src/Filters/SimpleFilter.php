@@ -53,18 +53,19 @@ class SimpleFilter extends Filter
             'method' => 'GET'
         );
         echo sprintf('<form %s>', jankx_generate_html_attributes($filterStyleWrap));
-            foreach ($this->data as $filterData) {
-                if (!is_a($filterData, FilterData::class)) {
-                    continue;
-                }
-                $this->renderFilterData($filterData);
+        foreach ($this->data as $filterData) {
+            if (!is_a($filterData, FilterData::class)) {
+                continue;
             }
+            $this->renderFilterData($filterData);
+        }
 
             $this->afterFormContent();
         echo '</form>';
     }
 
-    protected function afterFormContent() {
+    protected function afterFormContent()
+    {
         echo sprintf(
             '<div class="jankx-filter-wrap submit-form">
                 <button type="submit">%s</button>
