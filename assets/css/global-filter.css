@@ -2,8 +2,16 @@
   display: flex;
   margin-left: -10px;
   margin-right: -10px;
-  margin-bottom: 20px; }
-  .simple-filter-wrapper .jankx-filter-wrap {
-    padding: 0 10px; }
+  margin-bottom: 20px;
+  justify-content: center;
+}
+.simple-filter-wrapper .jankx-filter-wrap {
+  padding: 0 10px;
+}
+.simple-filter-wrapper .submit-form button[type=submit] {
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
 /*# sourceMappingURL=global-filter.css.map */

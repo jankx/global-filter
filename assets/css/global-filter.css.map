@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AAAA,sBAAuB;EACnB,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,KAAK;EAClB,YAAY,EAAE,KAAK;EACnB,aAAa,EAAE,IAAI;EAEnB,yCAAmB;IACf,OAAO,EAAE,MAAM",
-"sources": ["../scss/_layout.scss"],
-"names": [],
-"file": "global-filter.css"
-}
+{"version":3,"sourceRoot":"","sources":["../scss/_simple-filter.scss"],"names":[],"mappings":"AAAA;EACI;EACA;EACA;EACA;EACA;;AAEA;EACI;;AAIA;EACI;EACA;EACA","file":"global-filter.css"}

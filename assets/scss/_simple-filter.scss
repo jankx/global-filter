@@ -1,0 +1,19 @@
+.simple-filter-wrapper {
+    display: flex;
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: 20px;
+    justify-content: center;
+
+    .jankx-filter-wrap {
+        padding: 0 10px;
+    }
+
+    .submit-form {
+        button[type="submit"] {
+            height: 100%;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+}
