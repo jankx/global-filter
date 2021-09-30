@@ -11,6 +11,7 @@ use Jankx\Filter\FilterManager;
 class PostTypeFiltersRenderer extends RendererBase
 {
     protected $postType = 'post';
+
     protected $filters = array();
     protected $options = array(
         'posts_per_page' => 8,
