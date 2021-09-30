@@ -17,6 +17,9 @@
   "autoload": {
     "psr-4": {
       "Jankx\\Filter\\": "src/"
-    }
+    },
+    "files": [
+      "./bootstrap.php"
+    ]
   }
 }
