@@ -30,7 +30,7 @@
         display: none;
     }
     .virtual-checkbox {
-        border: 1px solid #dfdfdf;
+        border: 2px solid #dfdfdf;
         border-radius: 2px;
         height: 16px;
         width: 16px;
@@ -47,8 +47,8 @@
                 font-size: 1em;
                 font-family: "Gujarati MT", "Devanagari MT", sans-serif;
                 position: absolute;
-                top: -1px;
-                left: 1px;
+                top: -2px;
+                left: 0px;
                 color: inherit;
             }
         }
