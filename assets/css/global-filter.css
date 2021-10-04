@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .simple-filter-wrapper {
   display: flex;
   margin-left: -10px;
@@ -51,13 +50,17 @@
   color: #aaa;
 }
 .filter-option input:checked + .virtual-checkbox:before {
-  content: "✓";
-  font-size: 1em;
-  font-family: "Gujarati MT", "Devanagari MT", sans-serif;
+  content: "";
+  display: inline-block;
+  transform: rotate(45deg);
+  height: calc(75%);
+  width: calc(40%);
+  border-width: 0 2px 2px 0;
+  border-color: inherit;
+  border-style: solid;
   position: absolute;
-  top: -2px;
-  left: 0px;
-  color: inherit;
+  left: 2.5px;
+  bottom: 1.5px;
 }
 
 /*# sourceMappingURL=global-filter.css.map */
