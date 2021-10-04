@@ -29,6 +29,26 @@ function jankx_global_filter_init() {
             );
         }
     }
+
+    var collapseButtons = document.querySelectorAll('.jankx-global-filter .collapse-button');
+    collapseButtons.forEach(function(btn){
+        btn.addEventListener('click', function(e){
+            e.preventDefault();
+
+            var filter_wrapper = e.target.findParent('.jankx-filter');
+            if (!filter_wrapper) {
+                return;
+            }
+
+            if (filter_wrapper.hasClass('collapse')) {
+                filter_wrapper.addClass('expand');
+                filter_wrapper.removeClass('collapse');
+            } else {
+                filter_wrapper.addClass('collapse');
+                filter_wrapper.removeClass('expand');
+            }
+        });
+    });
 }
 
 document.addEventListener(

@@ -2,13 +2,20 @@
 
 use Jankx\PostLayout\PostLayoutManager;
 use Jankx\Filter\BuiltInFeatures;
+use Jankx\Filter\FilterManager;
 
 if (!class_exists(Jankx_Global_Filter_Bootstrap::class)) {
     class Jankx_Global_Filter_Bootstrap
     {
         public function __construct()
         {
+            $this->defineConstants();
             $this->defineFunctions();
+        }
+
+        protected function defineConstants()
+        {
+            define('JANKX_FILTER_ROOT_DIR', dirname(__FILE__));
         }
 
         public function defineFunctions()
@@ -34,6 +41,9 @@ if (!class_exists(Jankx_Global_Filter_Bootstrap::class)) {
 
             // Load built-in features
             BuiltInFeatures::getInstance();
+
+            // Support Global Filter
+            FilterManager::getInstance();
         }
     }
 }

@@ -6,12 +6,17 @@ use Jankx\Filter\FilterData;
 
 class SimpleFilter extends Filter
 {
+    const FILTER_NAME = 'simple-filter';
+
+    public function getName()
+    {
+        return static::FILTER_NAME;
+    }
+
     public function getTitle()
     {
         return __('Simple Filter', 'jankx_filter');
     }
-
-
 
     public function renderSelectFilter($filterData)
     {

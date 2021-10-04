@@ -3,6 +3,8 @@ namespace Jankx\Filter\Widgets;
 
 use WP_Widget;
 use Jankx\Filter\BuiltInFeatures;
+use Jankx\Filter\Renderer\FilterRenderer;
+use Jankx\Filter\Transformer\WidgetSettingsToFilterRendererOptions;
 
 class ProductFiltersWidget extends WP_Widget
 {
@@ -50,7 +52,7 @@ class ProductFiltersWidget extends WP_Widget
     {
         return apply_filters('jankx/filters/product/support_types', array(
             'taxonomies' => __('Taxonomies', 'jankx_filter'),
-            'attributes' => __('Product Attributes', 'jankx_filter'),
+            'woocommerce_attributes' => __('Product Attributes', 'jankx_filter'),
             'product_meta' => __('Product Meta', 'jankx_filter'),
         ));
     }
@@ -74,7 +76,7 @@ class ProductFiltersWidget extends WP_Widget
         $data = array(
             'support_types' => static::filterDataTypes(),
             'taxonomies' => $taxonomies,
-            'attributes' => $attributes,
+            'woocommerce_attributes' => $attributes,
         );
 
         foreach (array_keys($taxonomies) as $taxonomy) {
@@ -197,7 +199,7 @@ class ProductFiltersWidget extends WP_Widget
         $data = static::prepareFilterData();
         foreach ($filters as $filterIndex => $filter) :
             $selected_terms = (array)array_get($filter, 'data_term', array('all'));
-        ?>
+            ?>
         <div class="product-filter product-filter-<?php echo $filterIndex; ?>">
             <div class="filter-title">
                 <div class="title-bar"><?php echo esc_html(array_get($filter, 'filter_name', 'No name')); ?></div>
@@ -314,8 +316,16 @@ class ProductFiltersWidget extends WP_Widget
             echo array_get($instance, 'title');
             echo $args['after_title'];
         }
+        $filters = array_get($instance, 'filters', []);
         ?>
-            <div class="products-filter-content <?php echo array_get($instance, 'content_display', 'expand'); ?>">
+            <div class="products-filter-content">
+                <?php
+                foreach ($filters as $filter) {
+                    $filterOptionsTransformer = new WidgetSettingsToFilterRendererOptions($filter);
+                    $filterRenderer = new FilterRenderer($filterOptionsTransformer->getOptions());
+                    $filterRenderer->render();
+                }
+                ?>
             </div>
             <?php
             echo $args['after_widget'];

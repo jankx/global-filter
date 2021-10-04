@@ -11,8 +11,8 @@
     }
   ],
   "require": {
-    "jankx/post-layout": "*",
-    "jankx/widget": "*"
+    "jankx/template": "*",
+    "jankx/post-layout": "*"
   },
   "autoload": {
     "psr-4": {

@@ -3,6 +3,8 @@ namespace Jankx\Filter\Interfaces;
 
 interface FilterInterface
 {
+    public function getName();
+
     public function getTitle();
 
     public function setData($data);
