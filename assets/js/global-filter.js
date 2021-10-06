@@ -147,7 +147,7 @@ function jankx_global_filter_control_change_value(e, destLayout = undefined) {
     });
 
     if (destLayout === 'jankx-main-layout') {
-        var orderingFilter = document.querySelector('.woocommerce-ordering select.orderby');
+        var orderingFilter = document.querySelector('.jankx-product-ordering select.orderby');
         if (orderingFilter) {
             filterValues.append('order_product', orderingFilter.value);
         }
@@ -162,6 +162,14 @@ function jankx_global_filter_monitor_filters()
     if (filterControls.length > 0) {
         filterControls.forEach(function(filterControl) {
             filterControl.addEventListener('change', jankx_global_filter_control_change_value);
+        });
+    }
+
+    // Support product order by
+    var orderByControl = document.querySelector('.jankx-product-ordering select.orderby');
+    if (orderByControl) {
+        orderByControl.addEventListener("change", function(e) {
+            jankx_global_filter_control_change_value(e, 'jankx-main-layout');
         });
     }
 }
