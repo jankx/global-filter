@@ -35,6 +35,7 @@ class MultiValuesFilter extends Filter
             'multi-values-filter',
             array(
                 'filter_options' => $data->getOptions(),
+                'data_type' => $data->getId(),
                 'options' => $options,
                 'filter_type' => $this->getName(),
             )

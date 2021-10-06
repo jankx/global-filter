@@ -14,6 +14,7 @@ class FilterOptions
     protected $filterType;
     protected $displayType;
     protected $datas = array();
+    protected $destinationLayout = 'jankx-main-layout';
 
     public function __construct($builtInFeatures = null)
     {
@@ -72,5 +73,15 @@ class FilterOptions
         if (is_a($datas, FilterData::class)) {
             $this->datas = $datas;
         }
+    }
+
+    public function setDestinationLayout($layout)
+    {
+        $this->destinationLayout = $layout;
+    }
+
+    public function getDestinationLayout()
+    {
+        return $this->destinationLayout;
     }
 }

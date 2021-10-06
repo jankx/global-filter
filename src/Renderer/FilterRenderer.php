@@ -22,6 +22,7 @@ class FilterRenderer extends FilterRendererAbstract
             'name' => $this->options->getName(),
             'display_type' => $this->options->getDisplayType(),
             'filter_type' => $filter->getName(),
+            'destination_layout' => $this->options->getDestinationLayout(),
         ));
         $filter->render();
         FilterTemplate::loadTemplate('end-filter');

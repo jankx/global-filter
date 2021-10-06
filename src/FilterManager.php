@@ -1,7 +1,9 @@
 <?php
 namespace Jankx\Filter;
 
+use WP_Term;
 use Jankx\Filter\Filters\SimpleFilter;
+use Jankx\PostLayout\Request\PostsFetcher;
 
 class FilterManager
 {
@@ -55,15 +57,44 @@ class FilterManager
         return sprintf('%s/assets/%s', $this->rootDirUrl, $path);
     }
 
+    protected function detect_conditions($queried_object)
+    {
+        if (is_a($queried_object, WP_Term::class)) {
+            switch ($queried_object->taxonomy) {
+                case 'product_cat':
+                case 'product_tag':
+                    return array(
+                        'taxonomy' => array(
+                            $queried_object->taxonomy => array($queried_object->term_id),
+                        )
+                    );
+            }
+        }
+        return array();
+    }
+
     public function registerScripts()
     {
+        $queried_object = get_queried_object();
+        $current_conditions = apply_filters(
+            'jankx/filter/current_conditions',
+            $this->detect_conditions($queried_object),
+            $queried_object
+        );
+
         js(
             'jankx-global-filter',
             $this->asset_url('js/global-filter.js'),
-            array('choices'),
+            array('choices', 'jankx-post-layout'),
             static::VERSION,
             true
-        )->enqueue();
+        )
+        ->localize('jkx_global_filter', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'action' => PostsFetcher::FETCH_POSTS_ACTION,
+            'current_conditions' => (object)$current_conditions,
+        ))
+        ->enqueue();
 
         css(
             'jankx-global-filter',
