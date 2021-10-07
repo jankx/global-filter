@@ -2,7 +2,7 @@
 namespace Jankx\Filter\Renderer;
 
 use WP_Query;
-use Jankx\TemplateLoader;
+use Jankx\TemplateAndLayout;
 use Jankx\Widget\Renderers\Base as RendererBase;
 use Jankx\PostLayout\PostLayoutManager;
 use Jankx\PostLayout\Layout\Card;
@@ -66,7 +66,7 @@ class PostTypeFiltersRenderer extends RendererBase
             return;
         }
 
-        $postLayoutManager = PostLayoutManager::getInstance(TemplateLoader::getTemplateEngine());
+        $postLayoutManager = PostLayoutManager::getInstance(TemplateAndLayout::getTemplateEngine());
         $postLayout = $postLayoutManager->createLayout(
             Card::LAYOUT_NAME,
             $this->generateWordPressQuery()
