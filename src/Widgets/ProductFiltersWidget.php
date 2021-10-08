@@ -77,6 +77,7 @@ class ProductFiltersWidget extends WP_Widget
             'support_types' => static::filterDataTypes(),
             'taxonomies' => $taxonomies,
             'woocommerce_attributes' => $attributes,
+            'control_template' => static::filterControlTemplate(),
         );
 
         foreach (array_keys($taxonomies) as $taxonomy) {
@@ -94,7 +95,6 @@ class ProductFiltersWidget extends WP_Widget
         wp_register_script('jankx_filter_product', jankx_filter_assets_dir_url('js/product-filters.js', true), array('jquery', 'tim', 'jankx_choices'), '1.0.1', true);
 
         wp_localize_script('jankx_filter_product', 'jankx_product_filters', static::prepareFilterData());
-        wp_localize_script('jankx_filter_product', 'jankx_product_filter_control_template', static::filterControlTemplate());
         wp_localize_script('jankx_filter_product', 'jankx_filter_languages', array(
             'all_item' => __('All'),
         ));
@@ -196,7 +196,6 @@ class ProductFiltersWidget extends WP_Widget
             return;
         }
         $builtInFeature = BuiltInFeatures::getInstance();
-        $data = static::prepareFilterData();
         foreach ($filters as $filterIndex => $filter) :
             $selected_terms = (array)array_get($filter, 'data_term', array('all'));
             ?>

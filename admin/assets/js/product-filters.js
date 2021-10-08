@@ -11,7 +11,7 @@
         var controlNamePrefix = $(filters_wrapper).find('input.control_name').val();
         var currentIndex = $(filters_wrapper).find('input.current_items');
 
-        filter = tim(window.jankx_product_filter_control_template, {
+        filter = tim(window.jankx_product_filters.control_template, {
             index: parseInt(currentIndex.val()),
             control_name: controlNamePrefix,
             multiple: '',
