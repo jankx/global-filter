@@ -15,6 +15,7 @@ class PostTypeFiltersRenderer extends RendererBase
     protected $filters = array();
     protected $options = array(
         'posts_per_page' => 8,
+        'filters' => [],
     );
     protected $layoutOptions = array(
         'columns' => 4,
@@ -30,6 +31,12 @@ class PostTypeFiltersRenderer extends RendererBase
             'post_type' => 'project',
             'posts_per_page' => array_get($this->options, 'posts_per_page', 8),
         );
+
+
+        $filters = array_get($this->options, 'filters');
+        if (isset($filters[0])) {
+            $firstOption = $filters[0]->getFirstOption();
+        }
 
         return new WP_Query($args);
     }

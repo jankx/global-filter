@@ -37,4 +37,10 @@ class FilterData extends Data
     {
         $this->typeName = $typeName;
     }
+
+    public function getFirstOption() {
+        if (count($this->options)) {
+            return $this->options[0];
+        }
+    }
 }
