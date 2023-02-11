@@ -59,8 +59,10 @@ class ProductFiltersWidget extends WP_Widget
 
     protected static function getAllProductAttributes()
     {
-        $attributes = wc_get_attribute_taxonomies();
         $ret = array();
+        $attributes = function_exists('wc_get_attribute_taxonomies')
+            ? call_user_func('wc_get_attribute_taxonomies')
+            : [];
 
         foreach ($attributes as $attribute) {
             $ret[$attribute->attribute_name] = $attribute->attribute_label;
