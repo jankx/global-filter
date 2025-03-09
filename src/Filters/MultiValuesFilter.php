@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter\Filters;
 
 use Jankx\Filter\FilterTemplate;

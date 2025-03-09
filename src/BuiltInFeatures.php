@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter;
 
 use Jankx\Filter\Widgets\ProductFiltersWidget;
@@ -41,6 +42,10 @@ class BuiltInFeatures
                 'name' => __('Multi Values', 'jankx_filter'),
                 'filter_class' => MultiValuesFilter::class
             ),
+            'taxonomy' => [
+                'name' => __('Taxonomy', 'jankx_filter'),
+                'filter_class' => TaxonomyFilter::class
+            ]
         );
 
         return apply_filters('jankx/global/filters', $builtInFilters);

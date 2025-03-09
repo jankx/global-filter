@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter;
 
 use WP_Term;

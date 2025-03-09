@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter\Abstracts;
 
 use Jankx\Filter\Interfaces\FilterDataInterface;

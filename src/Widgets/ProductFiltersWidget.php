@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter\Widgets;
 
 use WP_Widget;
@@ -79,11 +80,14 @@ class ProductFiltersWidget extends WP_Widget
             'support_types' => static::filterDataTypes(),
             'taxonomies' => $taxonomies,
             'woocommerce_attributes' => $attributes,
+            'product_meta' => apply_filters('jankx/woocommerce/filters/product_metas', [
+                'price' => __('Price', 'woocommerce'),
+            ]),
             'control_template' => static::filterControlTemplate(),
         );
 
         foreach (array_keys($taxonomies) as $taxonomy) {
-            $data[sprintf('taxonomy_%s', $taxonomy)]= static::getAllTaxonomyTerms($taxonomy);
+            $data[sprintf('taxonomy_%s', $taxonomy)] = static::getAllTaxonomyTerms($taxonomy);
         }
 
         return $data;
@@ -157,11 +161,16 @@ class ProductFiltersWidget extends WP_Widget
                         <option value="" data-specs="Remove after this control has value"><?php echo esc_html(__('Choose a value', 'jankx_filter')); ?></option>
                     </select>
                 </p>
-                <p>
+                <p class="meta_filters choosen">
                     <label for=""><?php echo esc_html(__('Choose terms', 'jankx_filter')); ?></label>
                     <select name="{{control_name}}[{{index}}][data_term][]" multiple="multiple" class="widefat choose-data-terms">
                         <option value="all" class="all-item" selected><?php echo esc_html(__('All')); ?></option>
                     </select>
+                </p>
+
+                <p class="meta_filters input">
+                    <label for=""><?php echo esc_html(__('Choose terms', 'jankx_filter')); ?></label>
+                    <input name="{{control_name}}[{{index}}][data_term_custom][]" multiple="multiple" class="widefat choose-data-text" />
                 </p>
 
                 <p>
@@ -198,14 +207,15 @@ class ProductFiltersWidget extends WP_Widget
             return;
         }
         $builtInFeature = BuiltInFeatures::getInstance();
+        $filters = array_values($filters);
         foreach ($filters as $filterIndex => $filter) :
             $selected_terms = (array)array_get($filter, 'data_term', array('all'));
             ?>
-        <div class="product-filter product-filter-<?php echo $filterIndex; ?>">
+        <div class="product-filter product-filter-<?php echo $filterIndex; ?> <?php echo ( $filterIndex < 1 ? 'filter-expanded' : ''); ?>">
             <div class="filter-title">
                 <div class="title-bar"><?php echo esc_html(array_get($filter, 'filter_name', 'No name')); ?></div>
                 <button class="collapse-filter">
-                    <span class="dashicons dashicons-arrow-down-alt2"></span>
+                    <span class="dashicons dashicons-arrow-<?php  echo ( $filterIndex < 1 ? 'up' : 'down'); ?>-alt2"></span>
                 </button>
             </div>
             <div class="filter-content">
@@ -243,11 +253,16 @@ class ProductFiltersWidget extends WP_Widget
                         <option value="" data-specs="Remove after this control has value"><?php echo esc_html(__('Choose a value', 'jankx_filter')); ?></option>
                     </select>
                 </p>
-                <p>
+                <p class="meta_filters choosen">
                     <label for=""><?php echo esc_html(__('Choose terms', 'jankx_filter')); ?></label>
                     <select name="<?php echo $this->get_field_name('filters'); ?>[<?php echo $filterIndex; ?>][data_term][]" multiple="multiple" class="widefat choose-data-terms">
                         <option value="all" class="all-item"<?php selected(in_array('all', $selected_terms)); ?>><?php echo esc_html(__('All')); ?></option>
                     </select>
+                </p>
+
+                <p class="meta_filters input">
+                    <label for=""><?php echo esc_html(__('Choose terms', 'jankx_filter')); ?></label>
+                    <input name="<?php echo $this->get_field_name('filters'); ?>[<?php echo $filterIndex; ?>][data_term_custom][]" multiple="multiple" class="widefat choose-data-terms">
                 </p>
 
                 <p>

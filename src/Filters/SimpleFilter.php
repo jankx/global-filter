@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter\Filters;
 
 use Jankx\Filter\Abstracts\Filter;
@@ -46,6 +47,7 @@ class SimpleFilter extends Filter
         switch ($filterData->getDisplayType()) {
             case 'select':
             case 'choices':
+            case null:
                 return $this->renderSelectFilter($filterData);
         }
     }
@@ -58,14 +60,13 @@ class SimpleFilter extends Filter
             'method' => 'GET'
         );
         echo sprintf('<form %s>', jankx_generate_html_attributes($filterStyleWrap));
-        foreach ($this->data as $filterData) {
-            if (!is_a($filterData, FilterData::class)) {
-                continue;
-            }
-            $this->renderFilterData($filterData);
+        if (!is_a($this->data, FilterData::class)) {
+            return;
         }
 
+            $this->renderFilterData($this->data);
             $this->afterFormContent();
+
         echo '</form>';
     }
 

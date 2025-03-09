@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter\Renderer;
 
 use Jankx\Filter\Abstracts\FilterRenderer as FilterRendererAbstract;
@@ -14,7 +15,12 @@ class FilterRenderer extends FilterRendererAbstract
             return;
         }
 
+
         $filter = $this->options->getFilterType();
+        if (is_null($filter)) {
+            return;
+        }
+
         $filter->setData($this->options->datas);
         $filter->setOptions($this->options);
 
@@ -24,7 +30,9 @@ class FilterRenderer extends FilterRendererAbstract
             'filter_type' => $filter->getName(),
             'destination_layout' => $this->options->getDestinationLayout(),
         ));
+
         $filter->render();
+
         FilterTemplate::loadTemplate('end-filter');
     }
 }

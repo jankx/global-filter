@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter\Interfaces;
 
 interface FilterInterface
@@ -12,4 +13,6 @@ interface FilterInterface
     public function getData();
 
     public function render();
+
+    public function setOptions($options);
 }

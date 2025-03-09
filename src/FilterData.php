@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter;
 
 use Jankx\Filter\FilterOption;
@@ -38,7 +39,8 @@ class FilterData extends Data
         $this->typeName = $typeName;
     }
 
-    public function getFirstOption() {
+    public function getFirstOption()
+    {
         if (count($this->options)) {
             return $this->options[0];
         }

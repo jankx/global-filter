@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter\Transformer;
 
 use Jankx\Filter\Abstracts\Transformer;

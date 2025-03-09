@@ -46,3 +46,11 @@
 .filter-expanded .title-bar {
     border-bottom: 1px solid #c4c4c4;
 }
+
+.meta_filters {
+    display: none;
+}
+
+.meta_filters.enable {
+    display: block;
+}

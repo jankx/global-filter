@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Filter\Renderer;
 
 use WP_Query;
