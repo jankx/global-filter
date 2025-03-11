@@ -91,11 +91,6 @@
         $(this).parents('.product-filter').find('.title-bar').text($(this).val());
     });
 
-    function loadFilterDataAfterRefresh() {
-    }
-
-    $(document).on('load', function(){
-    });
     $( document ).on( { 'widget-added widget-updated': function ( e, widget ) {
         console.log(widget);
     }});
@@ -104,4 +99,13 @@
         e.preventDefault();
         $(this).parents('.product-filter').remove();
     });
+
+    // $(document).on('change', '.choose-filter-type', function(e){
+    //     e.preventDefault();
+    //     $(this).parents('.product-filter')
+    //         .addClass('filter-type-' + $(this).val())
+    //         .find('.data-type-wrapper .choose-data-type')
+    //         .val('taxonomies');
+
+    // });
 })(jQuery);

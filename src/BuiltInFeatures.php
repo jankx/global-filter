@@ -2,6 +2,7 @@
 
 namespace Jankx\Filter;
 
+use Jankx\Filter\Filters\TaxonomyFilter;
 use Jankx\Filter\Widgets\ProductFiltersWidget;
 use Jankx\Filter\Filters\SimpleFilter;
 use Jankx\Filter\Filters\MultiValuesFilter;

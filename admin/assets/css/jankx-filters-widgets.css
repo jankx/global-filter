@@ -31,6 +31,10 @@
     display: block;
 }
 
+.filter-type-taxonomy .data-type-wrapper {
+    display: none;
+}
+
 .filters .filter-title {
     margin-left: -15px;
     margin-right: -15px;

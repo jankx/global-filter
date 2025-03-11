@@ -4,7 +4,6 @@ namespace Jankx\Filter\Filters;
 
 use Jankx\Filter\FilterTemplate;
 use Jankx\Filter\Abstracts\Filter;
-use Jankx\Filter\FilterOptions;
 
 class MultiValuesFilter extends Filter
 {
