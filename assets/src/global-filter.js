@@ -140,9 +140,12 @@ function jankx_global_filter_control_change_value(e, destLayout = undefined) {
     var filtersOfDestLayouts = document.querySelectorAll('[data-dest-layout=' + destLayout + ']');
     var filterValues = new FormData();
     filtersOfDestLayouts.forEach(function(filter){
-        var data = new FormData(filter.querySelector('form'));
-        for (var [key, val] of data) {
-            filterValues.append(key, val);
+        const formOffilter = filter.querySelector('form');
+        if (formOffilter) {
+            var data = new FormData();
+            for (var [key, val] of data) {
+                filterValues.append(key, val);
+            }
         }
     });
 
@@ -159,6 +162,7 @@ function jankx_global_filter_control_change_value(e, destLayout = undefined) {
 function jankx_global_filter_monitor_filters()
 {
     var filterControls = document.querySelectorAll('.jankx-filter .filter-control');
+    console.log(filterControls);
     if (filterControls.length > 0) {
         filterControls.forEach(function(filterControl) {
             filterControl.addEventListener('change', jankx_global_filter_control_change_value);
@@ -188,9 +192,13 @@ function jankx_global_filter_init() {
 
     jankx_global_filter_collapse_content();
     jankx_global_filter_monitor_filters();
+
+    console.log('zo');
 }
 
 document.addEventListener(
     'DOMContentLoaded',
     jankx_global_filter_init
 );
+
+console.log('du ma');

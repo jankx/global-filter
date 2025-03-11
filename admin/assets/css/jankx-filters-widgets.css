@@ -51,6 +51,6 @@
     display: none;
 }
 
-.meta_filters.enable {
+.meta_filters.enabled {
     display: block;
 }
