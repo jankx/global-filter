@@ -50,7 +50,7 @@ class WidgetSettingsToFilterRendererOptions
 
     protected function transformProductMeta($metaKey, $options, $label = null)
     {
-        $filterData = new FilterData($metaKey, $label, 'meta');
+        $filterData = new FilterData('meta', $label, 'meta');
 
         foreach ($options as $filterRule => $label) {
             $filterOption = new FilterOption($filterRule, $label, $metaKey);
