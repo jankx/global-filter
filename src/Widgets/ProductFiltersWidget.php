@@ -66,6 +66,16 @@ class ProductFiltersWidget extends WP_Widget
         ));
     }
 
+    public static function convertAttributeToLabel($attribute)
+    {
+        $label = preg_replace('/[_-]/', ' ', $attribute);
+        $label_arr = explode(' ', $label);
+        $label_arr = array_map(function ($label) {
+            return ucfirst($label);
+        }, $label_arr);
+        return implode(' ', $label_arr);
+    }
+
     protected static function getAllProductAttributes()
     {
         $ret = array();
@@ -74,7 +84,16 @@ class ProductFiltersWidget extends WP_Widget
             : [];
 
         foreach ($attributes as $attribute) {
-            $ret[$attribute->attribute_name] = $attribute->attribute_label;
+            $ret[$attribute->attribute_name] = static::convertAttributeToLabel($attribute->attribute_label);
+        }
+        return $ret;
+    }
+
+    protected static function convertAttributesToMeta($attributes)
+    {
+        $ret = [];
+        foreach ($attributes as $key => $value) {
+            $ret[sprintf('attribute_%s', $key)] = $value;
         }
         return $ret;
     }
@@ -90,7 +109,7 @@ class ProductFiltersWidget extends WP_Widget
             'woocommerce_attributes' => $attributes,
             'product_meta' => apply_filters(
                 'jankx/woocommerce/filters/product_metas',
-                array_merge($attributes, [
+                array_merge(static::convertAttributesToMeta($attributes), [
                             'meta_price' => __('Price', 'woocommerce'),
                         ])
             ),
@@ -108,7 +127,7 @@ class ProductFiltersWidget extends WP_Widget
     {
 
         wp_register_script('tim', jankx_filter_assets_dir_url('lib/tim.js'), null, '1.0.0', true);
-        wp_register_script('jankx_choices', jankx_filter_assets_dir_url('lib/choices/scripts/choices.min.js'), array(), '9.0.1', true);
+        wp_register_script('jankx_choices', jankx_filter_assets_dir_url('lib/choices/scripts/choices.min.js'), array(), '11.0.6', true);
         wp_register_script('jankx_filter_product', jankx_filter_assets_dir_url('js/product-filters.js', true), array('jquery', 'tim', 'jankx_choices'), '1.0.1', true);
 
         wp_localize_script('jankx_filter_product', 'jankx_product_filters', static::prepareFilterData());
@@ -118,7 +137,7 @@ class ProductFiltersWidget extends WP_Widget
 
         wp_enqueue_script('jankx_filter_product');
 
-        wp_register_style('jankx_choices', jankx_filter_assets_dir_url('lib/choices/styles/choices.min.css'), array(), '1.0.1');
+        wp_register_style('jankx_choices', jankx_filter_assets_dir_url('lib/choices/styles/choices.min.css'), array(), '11.0.6');
         wp_register_style('jankx_filter_product', jankx_filter_assets_dir_url('css/jankx-filters-widgets.css', true), array('jankx_choices'), '1.0.3');
 
         wp_enqueue_style('jankx_filter_product');
@@ -273,7 +292,7 @@ class ProductFiltersWidget extends WP_Widget
                             <option value="all" class="all-item" <?php selected(in_array('all', $selected_terms)); ?>>
                                 <?php echo esc_html(__('All')); ?></option>
                             <?php foreach ($termData as $option => $label) : ?>
-                                <option value="<?php echo $option; ?>" <?php selected($option, $selected_terms); ?>><?php echo $label; ?></option>
+                                <option value="<?php echo $option; ?>" <?php selected(in_array($option, $selected_terms)); ?>><?php echo $label; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </p>

@@ -5,6 +5,7 @@
             removeItemButton: true,
         });
     });
+
     $(document).on('click', '.add-filter-control', function(e) {
         e.preventDefault();
         var filters_wrapper = $(this).parent();
@@ -92,7 +93,13 @@
     });
 
     $( document ).on( { 'widget-added widget-updated': function ( e, widget ) {
-        console.log(widget);
+        e.preventDefault();
+        $(widget).find('.choose-data-terms').each(function(index, element){
+            element.choices = new Choices(element, {
+                searchEnabled: true,
+                removeItemButton: true,
+            });
+        });
     }});
 
     $(document).on('click', '.product-filter .remove-filter', function(e){
@@ -100,12 +107,4 @@
         $(this).parents('.product-filter').remove();
     });
 
-    // $(document).on('change', '.choose-filter-type', function(e){
-    //     e.preventDefault();
-    //     $(this).parents('.product-filter')
-    //         .addClass('filter-type-' + $(this).val())
-    //         .find('.data-type-wrapper .choose-data-type')
-    //         .val('taxonomies');
-
-    // });
 })(jQuery);

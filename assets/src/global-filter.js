@@ -162,7 +162,6 @@ function jankx_global_filter_control_change_value(e, destLayout = undefined) {
 function jankx_global_filter_monitor_filters()
 {
     var filterControls = document.querySelectorAll('.jankx-filter .filter-control');
-    console.log(filterControls);
     if (filterControls.length > 0) {
         filterControls.forEach(function(filterControl) {
             filterControl.addEventListener('change', jankx_global_filter_control_change_value);
