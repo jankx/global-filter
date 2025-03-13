@@ -10,7 +10,7 @@
                 value="<?php echo esc_attr($option->getId()); ?>"
             />
             <div class="virtual-checkbox"></div>
-            <?php echo $option->getName(); ?>
+            <a href="<?php echo get_term_link($option->getId()); ?>"><?php echo $option->getName(); ?></a>
         </label>
     </div>
 <?php endforeach; ?>

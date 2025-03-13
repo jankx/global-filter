@@ -41,6 +41,21 @@ function jankx_global_filter_collapse_content() {
         });
     }
 }
+/**
+ * @param {Array} terms list terms of queried object
+ * @param {string} data_type taxonomy name
+ * @param {FormData} request_body
+ * @return boolean
+ */
+function jankx_check_queried_object_with_request_body(terms, data_type, request_body) {
+    const checkingKey = data_type + '[' + Object.keys(terms).join('') + '][]';
+    request_body.forEach(function(value, key){
+        if (key==checkingKey) {
+            return true;
+        }
+    });
+    return false;
+}
 
 /**
  *
@@ -71,7 +86,7 @@ function jankx_global_filter_request_ajax(requestBody, destLayout) {
         var current_conditions = jkx_global_filter.current_conditions;
         Object.keys(current_conditions).forEach(function(data_type) {
             var data_terms = current_conditions[data_type];
-            if (Object.keys(data_terms).length > 0) {
+            if (Object.keys(data_terms).length > 0 && !jankx_check_queried_object_with_request_body(data_terms, data_type, requestBody)) {
                 Object.keys(data_terms).forEach(function(type) {
                     if (Array.isArray(data_terms[type])) {
                         data_terms[type].forEach(function(term) {
@@ -142,12 +157,13 @@ function jankx_global_filter_control_change_value(e, destLayout = undefined) {
     filtersOfDestLayouts.forEach(function(filter){
         const formOffilter = filter.querySelector('form');
         if (formOffilter) {
-            var data = new FormData();
+            var data = new FormData(formOffilter);
             for (var [key, val] of data) {
                 filterValues.append(key, val);
             }
         }
     });
+
 
     if (destLayout === 'jankx-main-layout') {
         var orderingFilter = document.querySelector('.jankx-product-ordering select.orderby');
@@ -155,7 +171,6 @@ function jankx_global_filter_control_change_value(e, destLayout = undefined) {
             filterValues.append('order_product', orderingFilter.value);
         }
     }
-
     jankx_global_filter_request_ajax(filterValues, destLayout);
 }
 
@@ -191,13 +206,9 @@ function jankx_global_filter_init() {
 
     jankx_global_filter_collapse_content();
     jankx_global_filter_monitor_filters();
-
-    console.log('zo');
 }
 
 document.addEventListener(
     'DOMContentLoaded',
     jankx_global_filter_init
 );
-
-console.log('du ma');
