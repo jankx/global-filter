@@ -20,30 +20,62 @@ class WidgetSettingsToFilterRendererOptions
         $this->transformToFilterOptions();
     }
 
-    protected function transformTaxonomyData($taxonomy, $terms_ids, $label = null)
+    protected function getAllTaxonomyTermsAsFilterData($taxonomy, $parent = 0, &$filterData = null)
+    {
+        $args = [
+            'taxonomy' => $taxonomy,
+            'hide_empty' => false,
+            'parent' => $parent,
+        ];
+        $options = [];
+        $terms = get_terms($args);
+        foreach ($terms as $term) {
+            $filterOption = new FilterOption($term->term_id, $term->name, $taxonomy);
+            $filterOption->setChildOptions(
+                $this->getAllTaxonomyTermsAsFilterData(
+                    $taxonomy,
+                    $term->term_id
+                )
+            );
+            $options[$filterOption->getId()] = $filterOption;
+        }
+        if (!is_null($filterData)) {
+            foreach ($options as $option) {
+                $filterData->addOption($option);
+            }
+        }
+        return $options;
+    }
+    protected function transformTaxonomyData($taxonomy, $terms_ids, $label = null, $multiLevel = false)
     {
         if (is_null($label)) {
             $taxonomy_obj = get_taxonomy($taxonomy);
             $label = $taxonomy_obj->label;
         }
         $filterData = new FilterData('taxonomy', $label, $taxonomy);
-
         $taxonomy_args = array(
             'taxonomy' => $taxonomy,
             'hide_empty' => false,
         );
         $terms = [];
 
-        if (in_array('all', $terms)) {
-            $terms = get_terms($taxonomy_args);
+        if (in_array('all', $terms_ids)) {
+            if (!$multiLevel) {
+                $terms = get_terms($taxonomy_args);
+            } else {
+                // special case
+                $this->getAllTaxonomyTermsAsFilterData($taxonomy, 0, $filterData);
+            }
         } else {
             $taxonomy_args['include'] = $terms_ids;
             $terms = get_terms($taxonomy_args);
         }
 
-        foreach ($terms as $term) {
-            $filterOption = new FilterOption($term->term_id, $term->name, $taxonomy);
-            $filterData->addOption($filterOption);
+        if (!empty($terms)) {
+            foreach ($terms as $term) {
+                $filterOption = new FilterOption($term->term_id, $term->name, $taxonomy);
+                $filterData->addOption($filterOption);
+            }
         }
         return $filterData;
     }
@@ -144,13 +176,13 @@ class WidgetSettingsToFilterRendererOptions
     public function transformData()
     {
         $customData = $this->getCustomData($this->widgetSettings);
-
         switch (array_get($this->widgetSettings, 'data_type')) {
             case 'taxonomies':
                 return $this->transformTaxonomyData(
                     array_get($this->widgetSettings, 'data_tax'),
                     !empty($customData) ? $customData : array_get($this->widgetSettings, 'data_term'),
-                    array_get($this->widgetSettings, 'filter_name')
+                    array_get($this->widgetSettings, 'filter_name'),
+                    array_get($this->widgetSettings, 'filter_type') === 'taxonomy'
                 );
             case 'attributes':
             case 'woocommerce_attributes':

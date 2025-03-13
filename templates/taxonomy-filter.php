@@ -1,4 +1,3 @@
-<form class="filter-options">
 <?php foreach($filter_options as $option): ?>
     <div class="filter-option">
         <label for="<?php echo $filter_type; ?>-<?php echo $option->getDataType(); ?>-<?php echo $option->getId(); ?>">
@@ -12,6 +11,14 @@
             <div class="virtual-checkbox"></div>
             <a href="<?php echo get_term_link($option->getId()); ?>"><?php echo $option->getName(); ?></a>
         </label>
+
+        <?php
+        if ($option->hasChildOptions()) {
+            echo '<div class="sub-options">';
+            echo $filter->renderChildOptions(
+                $option->getChildOptions()
+            );
+            echo '</div>';
+        } ?>
     </div>
 <?php endforeach; ?>
-</form>

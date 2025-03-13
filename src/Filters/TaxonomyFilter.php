@@ -32,8 +32,20 @@ class TaxonomyFilter extends Filter
             array(
                 'filter_options' => $data->getOptions(),
                 'data_type' => $data->getId(),
-                'options' => $options,
                 'filter_type' => $this->getName(),
+                'filter' => $this
+            )
+        );
+    }
+
+    public function renderChildOptions($childOptions)
+    {
+        return FilterTemplate::loadTemplate(
+            'taxonomy-filter',
+            array(
+                'filter_options' => $childOptions,
+                'filter_type' => $this->getName(),
+                'filter' => $this
             )
         );
     }

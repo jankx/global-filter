@@ -31,7 +31,13 @@ class FilterRenderer extends FilterRendererAbstract
             'destination_layout' => $this->options->getDestinationLayout(),
         ));
 
+        echo sprintf('<form %s>', jankx_generate_html_attributes([
+            'class' => 'filter-options'
+        ]));
+
         $filter->render();
+
+        echo '</form>';
 
         FilterTemplate::loadTemplate('end-filter');
     }
