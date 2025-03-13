@@ -16,7 +16,8 @@
         if ($option->hasChildOptions()) {
             echo '<div class="sub-options">';
             echo $filter->renderChildOptions(
-                $option->getChildOptions()
+                $option->getChildOptions(),
+                $data_type
             );
             echo '</div>';
         } ?>

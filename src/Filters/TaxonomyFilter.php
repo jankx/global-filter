@@ -38,12 +38,13 @@ class TaxonomyFilter extends Filter
         );
     }
 
-    public function renderChildOptions($childOptions)
+    public function renderChildOptions($childOptions, $dataType)
     {
         return FilterTemplate::loadTemplate(
             'taxonomy-filter',
             array(
                 'filter_options' => $childOptions,
+                'data_type' => $dataType,
                 'filter_type' => $this->getName(),
                 'filter' => $this
             )

@@ -387,7 +387,8 @@ class ProductFiltersWidget extends WP_Widget
             <?php
             foreach ($filters as $filter) {
                 $filterOptionsTransformer = new WidgetSettingsToFilterRendererOptions($filter);
-                $filterRenderer = new FilterRenderer($filterOptionsTransformer->getOptions());
+                $filterOptions = $filterOptionsTransformer->getOptions();
+                $filterRenderer = new FilterRenderer($filterOptions);
 
                 $filterRenderer->render();
             }
