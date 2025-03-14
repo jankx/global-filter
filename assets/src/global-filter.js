@@ -196,6 +196,26 @@ function jankx_global_filter_monitor_filters()
     }
 }
 
+function jankx_global_filter_disable_click_event_of_option_links() {
+    var optionLinks = document.querySelectorAll('.filter-option a');
+    if (optionLinks.length > 0) {
+        optionLinks.forEach(function(optionLink) {
+            optionLink.addEventListener('click', function(e){
+                e.preventDefault();
+                e.target.parentNode.click()
+            });
+        });
+    }
+
+    // Support product order by
+    var orderByControl = document.querySelector('.jankx-product-ordering select.orderby');
+    if (orderByControl) {
+        orderByControl.addEventListener("change", function(e) {
+            jankx_global_filter_control_change_value(e, 'jankx-main-layout');
+        });
+    }
+}
+
 function jankx_global_filter_init() {
     var filters = document.querySelectorAll('select.select-filter');
     if (filters.length > 0) {
@@ -210,6 +230,7 @@ function jankx_global_filter_init() {
 
     jankx_global_filter_collapse_content();
     jankx_global_filter_monitor_filters();
+    jankx_global_filter_disable_click_event_of_option_links();
 }
 
 document.addEventListener(
