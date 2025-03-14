@@ -41,6 +41,7 @@ function jankx_global_filter_collapse_content() {
         });
     }
 }
+
 /**
  * @param {Array} terms list terms of queried object
  * @param {string} data_type taxonomy name
@@ -49,12 +50,15 @@ function jankx_global_filter_collapse_content() {
  */
 function jankx_check_queried_object_with_request_body(terms, data_type, request_body) {
     const checkingKey = data_type + '[' + Object.keys(terms).join('') + '][]';
-    request_body.forEach(function(value, key){
+    let isOk = false;
+    const entries = request_body.entries();
+    for (let [key, _] of entries) {
         if (key==checkingKey) {
-            return true;
+            isOk = true;
+            break;
         }
-    });
-    return false;
+    }
+    return isOk;
 }
 
 /**
@@ -86,7 +90,7 @@ function jankx_global_filter_request_ajax(requestBody, destLayout) {
         var current_conditions = jkx_global_filter.current_conditions;
         Object.keys(current_conditions).forEach(function(data_type) {
             var data_terms = current_conditions[data_type];
-            if (Object.keys(data_terms).length > 0 && !jankx_check_queried_object_with_request_body(data_terms, data_type, requestBody)) {
+            if (!jankx_check_queried_object_with_request_body(data_terms, data_type, requestBody) && Object.keys(data_terms).length > 0) {
                 Object.keys(data_terms).forEach(function(type) {
                     if (Array.isArray(data_terms[type])) {
                         data_terms[type].forEach(function(term) {
@@ -164,13 +168,13 @@ function jankx_global_filter_control_change_value(e, destLayout = undefined) {
         }
     });
 
-
     if (destLayout === 'jankx-main-layout') {
         var orderingFilter = document.querySelector('.jankx-product-ordering select.orderby');
         if (orderingFilter) {
             filterValues.append('order_product', orderingFilter.value);
         }
     }
+
     jankx_global_filter_request_ajax(filterValues, destLayout);
 }
 
