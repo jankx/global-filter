@@ -91,10 +91,26 @@ class ProductFiltersWidget extends WP_Widget
 
     protected static function convertAttributesToMeta($attributes)
     {
-        $ret = [];
-        foreach ($attributes as $key => $value) {
-            $ret[sprintf('attribute_%s', $key)] = $value;
+        $transientKey = 'jankx_woocommerce_attributes_cache';
+        $ret = get_site_transient($transientKey);
+        if ($ret !== false) {
+            return $ret;
         }
+
+        global $wpdb;
+
+        $ret = [];
+        $rawKeys = $wpdb->get_results($wpdb->prepare("SELECT DISTINCT {$wpdb->postmeta}.meta_key FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.meta_key LIKE 'attribute_%'"));
+        $rawKeys = array_map(function ($keyObj) {
+            return $keyObj->meta_key;
+        }, $rawKeys);
+        foreach ($rawKeys as $rawKeyObj) {
+            $ret[$rawKeyObj] = static::convertAttributeToLabel(str_replace('attribute_', '', $rawKeyObj));
+        }
+
+        $ret = apply_filters('jankx/filter/meta/labels', $ret, $attributes);
+
+        set_site_transient($transientKey, $ret, DAY_IN_SECONDS);
         return $ret;
     }
 
