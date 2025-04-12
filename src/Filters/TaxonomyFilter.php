@@ -25,15 +25,14 @@ class TaxonomyFilter extends Filter
             return;
         }
 
-        $options = $this->getOptions();
-
         return FilterTemplate::loadTemplate(
             'taxonomy-filter',
             array(
                 'filter_options' => $data->getOptions(),
                 'data_type' => $data->getId(),
                 'filter_type' => $this->getName(),
-                'filter' => $this
+                'filter' => $this,
+                'support_multiple' => apply_filters('jankx/global-filters/taxonomy-filter/enabled', false),
             )
         );
     }
@@ -46,7 +45,8 @@ class TaxonomyFilter extends Filter
                 'filter_options' => $childOptions,
                 'data_type' => $dataType,
                 'filter_type' => $this->getName(),
-                'filter' => $this
+                'filter' => $this,
+                'support_multiple' => apply_filters('jankx/global-filters/taxonomy-filter/enabled', false),
             )
         );
     }

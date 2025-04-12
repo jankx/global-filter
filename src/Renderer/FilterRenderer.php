@@ -4,6 +4,7 @@ namespace Jankx\Filter\Renderer;
 
 use Jankx\Filter\Abstracts\FilterRenderer as FilterRendererAbstract;
 use Jankx\Filter\FilterOptions;
+use Jankx\Filter\Filters\TaxonomyFilter;
 use Jankx\Filter\FilterTemplate;
 
 class FilterRenderer extends FilterRendererAbstract
@@ -31,8 +32,13 @@ class FilterRenderer extends FilterRendererAbstract
             'destination_layout' => $this->options->getDestinationLayout(),
         ));
 
+        $filterOptionsCls = ['filter-options'];
+        if ($filter instanceof TaxonomyFilter && apply_filters('jankx/global-filters/taxonomy-filter/enabled', false)) {
+            $filterOptionsCls[] = 'multi-filters';
+        }
+
         echo sprintf('<form %s>', jankx_generate_html_attributes([
-            'class' => 'filter-options'
+            'class' => $filterOptionsCls
         ]));
 
         $filter->render();

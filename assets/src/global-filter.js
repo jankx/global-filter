@@ -197,7 +197,7 @@ function jankx_global_filter_monitor_filters()
 }
 
 function jankx_global_filter_disable_click_event_of_option_links() {
-    var optionLinks = document.querySelectorAll('.filter-option a');
+    var optionLinks = document.querySelectorAll('.filter-options.multi-filters .filter-option a');
     if (optionLinks.length > 0) {
         optionLinks.forEach(function(optionLink) {
             optionLink.addEventListener('click', function(e){
