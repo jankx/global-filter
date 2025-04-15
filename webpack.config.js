@@ -11,7 +11,7 @@ const stylesHandler = 'style-loader';
 
 const config = {
     entry: {
-        'global-filter': './assets/src/global-filter.js'
+        'global-filter': ['./assets/src/global-filter.js', './assets/scss/global-filter.scss']
     },
     output: {
         path: path.resolve(__dirname, 'assets'),
@@ -29,11 +29,21 @@ const config = {
             },
             {
                 test: /\.css$/i,
-                use: [stylesHandler,'css-loader'],
+                use: [stylesHandler, 'css-loader'],
             },
             {
-                test: /\.s[ac]ss$/i,
-                use: [stylesHandler, 'css-loader', 'sass-loader'],
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: "file-loader",
+                        options: {
+                            outputPath: "css/",
+                            name: (process.env.NODE_ENV === 'production' ? "[name].min.css" : "[name].css")
+                        },
+                    },
+                    "sass-loader",
+                ],
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,

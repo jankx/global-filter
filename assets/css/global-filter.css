@@ -18,6 +18,9 @@
   display: none;
 }
 
+.jankx-filter {
+  margin-bottom: 15px;
+}
 .jankx-filter .filter-header {
   position: relative;
 }
@@ -35,9 +38,14 @@
 .filter-option {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 .filter-option input.hidden {
   display: none;
+}
+.filter-option a {
+  display: block;
+  width: 100%;
 }
 .filter-option .virtual-checkbox {
   border: 2px solid #dfdfdf;
@@ -49,12 +57,20 @@
   top: 3px;
   color: #aaa;
 }
+.filter-option .sub-options {
+  display: none;
+  width: 100%;
+  margin-left: 15px;
+}
+.filter-option .sub-options.expanded {
+  display: block;
+}
 .filter-option input:checked + .virtual-checkbox:before {
   content: "";
   display: inline-block;
   transform: rotate(45deg);
-  height: calc(75%);
-  width: calc(40%);
+  height: 75%;
+  width: 40%;
   border-width: 0 2px 2px 0;
   border-color: inherit;
   border-style: solid;
@@ -62,5 +78,3 @@
   left: 2.5px;
   bottom: 1.5px;
 }
-
-/*# sourceMappingURL=global-filter.css.map */

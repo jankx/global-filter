@@ -1,5 +1,12 @@
-<?php foreach($filter_options as $option): ?>
-    <div class="filter-option">
+<?php
+$queried_object = get_queried_object();
+foreach($filter_options as $index => $option):
+    $optionCls = ['filter-option'];
+    if ($queried_object instanceof WP_Term && $option->getId() == $queried_object->term_id) {
+        $optionCls[] = 'active';
+    }
+    ?>
+    <div <?php echo jankx_generate_html_attributes(['class' => $optionCls]); ?>>
         <?php if($support_multiple): ?>
         <label for="<?php echo $filter_type; ?>-<?php echo $option->getDataType(); ?>-<?php echo $option->getId(); ?>">
             <input
@@ -18,7 +25,13 @@
 
         <?php
         if ($option->hasChildOptions()) {
-            echo '<div class="sub-options">';
+            $subOptionsCls = ['sub-options'];
+            if ($index === 0) {
+                $subOptionsCls[] = 'expanded';
+            }
+            echo sprintf('<div %s>', jankx_generate_html_attributes([
+                'class' => $subOptionsCls
+            ]));
             echo $filter->renderChildOptions(
                 $option->getChildOptions(),
                 $data_type

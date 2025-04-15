@@ -6,6 +6,7 @@
 }
 
 .jankx-filter {
+    margin-bottom: 15px;
     .filter-header {
         position: relative;
 
@@ -26,8 +27,13 @@
 .filter-option {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     input.hidden {
         display: none;
+    }
+    a {
+        display: block;
+        width: 100%;
     }
     .virtual-checkbox {
         border: 2px solid #dfdfdf;
@@ -38,6 +44,19 @@
         position: relative;
         top: 3px;
         color: #aaa;
+    }
+
+    .sub-options {
+        display: none;
+        width: 100%;
+        margin-left: 15px;
+        &.expanded {
+            display: block;
+        }
+
+        .filter-option {
+
+        }
     }
 
     input:checked {
