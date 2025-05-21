@@ -73,6 +73,7 @@ class TaxonomyFilter extends Filter
                 }
                 $this->activeOptions[] = $parentId;
             }
+            $this->activeOptions[] = $queried_object->term_id;
         }
 
         // set status active option
