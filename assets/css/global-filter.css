@@ -35,6 +35,17 @@
   padding: 5px;
 }
 
+.arrow::after {
+  content: "";
+  display: block;
+  border: solid #0a0a0a;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
 .filter-option {
   display: flex;
   align-items: center;
@@ -46,6 +57,17 @@
 .filter-option a {
   display: block;
   width: 100%;
+}
+.filter-option a i.arrow {
+  color: #0a0a0a;
+}
+.filter-option > a {
+  position: relative;
+}
+.filter-option > a .arrow::after {
+  position: absolute;
+  top: 6px;
+  right: 0;
 }
 .filter-option .virtual-checkbox {
   border: 2px solid #dfdfdf;

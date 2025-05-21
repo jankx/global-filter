@@ -1,9 +1,11 @@
 <?php
-$queried_object = get_queried_object();
 foreach($filter_options as $index => $option):
     $optionCls = ['filter-option'];
-    if ($queried_object instanceof WP_Term && $option->getId() == $queried_object->term_id) {
+    if (is_array($active_options) && in_array($option->getId(), $active_options)) {
         $optionCls[] = 'active';
+    }
+    if ($option->hasChildOptions()) {
+        $optionCls[] = 'collapse';
     }
     ?>
     <div <?php echo jankx_generate_html_attributes(['class' => $optionCls]); ?>>
@@ -18,7 +20,12 @@ foreach($filter_options as $index => $option):
             />
             <div class="virtual-checkbox"></div>
         <?php endif; ?>
-            <a href="<?php echo get_term_link($option->getId()); ?>"><?php echo $option->getName(); ?></a>
+            <a href="<?php echo get_term_link($option->getId()); ?>">
+                <?php echo $option->getName(); ?>
+                <?php if ($option->hasChildOptions()): ?>
+                    <i class="arrow"></i>
+                <?php endif; ?>
+            </a>
         <?php if($support_multiple): ?>
         </label>
         <?php endif; ?>
@@ -26,7 +33,7 @@ foreach($filter_options as $index => $option):
         <?php
         if ($option->hasChildOptions()) {
             $subOptionsCls = ['sub-options'];
-            if ($index === 0) {
+            if (is_array($active_options) && in_array($option->getId(), $active_options)) {
                 $subOptionsCls[] = 'expanded';
             }
             echo sprintf('<div %s>', jankx_generate_html_attributes([
