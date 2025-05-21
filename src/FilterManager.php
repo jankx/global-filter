@@ -8,7 +8,7 @@ use Jankx\PostLayout\Request\PostsFetcher;
 
 class FilterManager
 {
-    const VERSION = '1.0.0.13';
+    const VERSION = '1.0.0.15';
 
     protected $filterStyles;
     protected $rootDirUrl;
