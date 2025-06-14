@@ -2,6 +2,10 @@
 
 namespace Jankx\Filter;
 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+
 use Jankx\Filter\Filters\TaxonomyFilter;
 use Jankx\Filter\Widgets\ProductFiltersWidget;
 use Jankx\Filter\Filters\SimpleFilter;

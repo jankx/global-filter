@@ -2,6 +2,10 @@
 
 namespace Jankx\Filter;
 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+
 use Jankx\Filter\FilterOption;
 use Jankx\Filter\Abstracts\Data;
 

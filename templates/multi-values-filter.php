@@ -1,3 +1,8 @@
+<?php 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+ ?>
 <?php foreach($filter_options as $option): ?>
     <div class="filter-option">
         <label for="<?php echo $filter_type; ?>-<?php echo $option->getDataType(); ?>-<?php echo $option->getId(); ?>">

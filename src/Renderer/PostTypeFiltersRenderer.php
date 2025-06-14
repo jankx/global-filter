@@ -2,6 +2,10 @@
 
 namespace Jankx\Filter\Renderer;
 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+
 use WP_Query;
 use Jankx\TemplateAndLayout;
 use Jankx\Widget\Renderers\Base as RendererBase;

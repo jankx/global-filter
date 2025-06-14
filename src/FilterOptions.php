@@ -2,6 +2,10 @@
 
 namespace Jankx\Filter;
 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+
 use Jankx\Filter\BuiltInFeatures;
 use Jankx\Filter\Interfaces\FilterInterface;
 use Jankx\Filter\Filters\SimpleFilter;

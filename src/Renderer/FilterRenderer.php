@@ -2,6 +2,10 @@
 
 namespace Jankx\Filter\Renderer;
 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+
 use Jankx\Filter\Abstracts\FilterRenderer as FilterRendererAbstract;
 use Jankx\Filter\FilterOptions;
 use Jankx\Filter\Filters\TaxonomyFilter;

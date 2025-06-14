@@ -2,6 +2,10 @@
 
 namespace Jankx\Filter;
 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+
 use WP_Term;
 use Jankx\Filter\Filters\SimpleFilter;
 use Jankx\PostLayout\Request\PostsFetcher;

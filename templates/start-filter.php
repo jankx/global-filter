@@ -1,3 +1,8 @@
+<?php 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+ ?>
 <div class="jankx-filter jankx-global-filter <?php echo esc_attr($filter_type); ?><?php echo $display_type ? ' ' . $display_type : ''; ?>" data-dest-layout="<?php echo $destination_layout; ?>">
     <div class="filter-header">
         <?php if($name): ?><h3 class="filter-name"><?php echo $this->e($name); ?></h3><?php endif; ?>

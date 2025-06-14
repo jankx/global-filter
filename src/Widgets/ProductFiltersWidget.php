@@ -2,6 +2,10 @@
 
 namespace Jankx\Filter\Widgets;
 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+
 use Jankx;
 use WP_Widget;
 use Jankx\Filter\BuiltInFeatures;

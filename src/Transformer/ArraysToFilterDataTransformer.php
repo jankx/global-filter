@@ -2,6 +2,10 @@
 
 namespace Jankx\Filter\Transformer;
 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+
 use Jankx\Filter\Abstracts\Transformer;
 use Jankx\Filter\FilterData;
 use Jankx\Filter\FilterOption;

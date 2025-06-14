@@ -1,4 +1,7 @@
 <?php
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
 foreach($filter_options as $index => $option):
     $optionCls = ['filter-option'];
     if (is_array($active_options) && in_array($option->getId(), $active_options)) {
