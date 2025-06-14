@@ -3,7 +3,7 @@
 namespace Jankx\Filter;
 
 if (!defined('ABSPATH')) {
-    exit('Cheatin huh?');
+    exit('Cheating huh?');
 }
 
 use Jankx\Filter\Filters\TaxonomyFilter;

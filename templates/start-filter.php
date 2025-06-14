@@ -1,6 +1,6 @@
-<?php 
+<?php
 if (!defined('ABSPATH')) {
-    exit('Cheatin huh?');
+    exit('Cheating huh?');
 }
  ?>
 <div class="jankx-filter jankx-global-filter <?php echo esc_attr($filter_type); ?><?php echo $display_type ? ' ' . $display_type : ''; ?>" data-dest-layout="<?php echo $destination_layout; ?>">

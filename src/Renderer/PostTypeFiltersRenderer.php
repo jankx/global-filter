@@ -3,7 +3,7 @@
 namespace Jankx\Filter\Renderer;
 
 if (!defined('ABSPATH')) {
-    exit('Cheatin huh?');
+    exit('Cheating huh?');
 }
 
 use WP_Query;
